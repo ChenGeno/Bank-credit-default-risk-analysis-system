@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>管理员登录</title>
+
+    <link href="../../static/common/inspinia/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/common/inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="../../static/common/inspinia/css/animate.css" rel="stylesheet">
+    <link href="../../static/common/inspinia/css/style.css" rel="stylesheet">
+
+    <!--<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>-->
+    <script src="../../static/common/inspinia/js/jquery-3.1.1.min.js"></script>
+</head>
+
+<body class="gray-bg" style="background-image: url(../../static/img/sueplogo_br.png); background-repeat:no-repeat; background-position: bottom right;">
+
+<div class="middle-box text-center loginscreen animated fadeInDown" >
+    <div>
+        <div>
+
+            <div style="text-align: center; height: 150px;">
+                <img src="../../static/img/admin.png" style="width: 150px;">
+            </div>
+        </div>
+        <h2 class="font-bold" style="letter-spacing:40px;padding-left:40px;">欢迎登陆</h2>
+        <h3 class="font-bold" style="letter-spacing:5px;padding-left:5px;">研究生导师双选系统</h3>
+
+        <form class="m-t" role="form" id="loginForm" action="/login/" method="post"><!--${pageContext.request.contextPath }/login.do-->
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="用户名" required="text" name="email" id="email">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="密码" required="password" name="password" id="password">
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b" id='login'>登录</button>
+
+            <a href="#">
+                <small>忘记密码?</small>
+            </a>
+
+            <a class="btn btn-sm btn-white btn-block" href="/view/common/homepage.htmlomepage.html">返回首页</a>
+        </form>
+        <p class="m-t"> <small>JavaEE 20171370 &copy; 2020</small> </p>
+    </div>
+</div>
+
+<script>
+    //绑定单击事件
+    $(function () {
+        $('#login').on('click',function () {
+            $.ajax({
+                type:'post',
+                url:"/login",
+                data:$.param({"page":"login_a"}),
+                dataType:'json',
+                success:function (data) {
+                    console.log(data);
+                    if(data.code == 2){
+                        alert("登录成功,即将进入院级管理系统!");
+                        window.location.replace("/view/admin/inform.jsp");
+                    }else if(data.code == 1){
+                        alert("登录成功，即将进入总管理系统!")
+                        window.location.replace("/view/admin/inform.jsp")
+                    } else {
+                        alert("登陆失败！"+data.msg);
+                    }
+                },
+                error : function(e){
+                    console.log(e.status);
+                    console.log(e.responseText);
+                }
+            });
+            return false;
+        })
+    })
+</script>
+</body>
+
+</html>

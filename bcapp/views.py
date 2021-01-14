@@ -4,10 +4,21 @@ from bcapp.models import Staff
 # Create your views here.
 
 def homepage(request):
-    return render(request, 'homepage.html')
+    return render(request, 'Staff/homepage.html')
 
+def login(request):
+    if request.method == "POST":
+        sno = request.POST.get("sno")
+        pwd = request.POST.get("pwd")
+
+        return HttpResponse("登录成功")
+
+    return render(request, 'Staff/login_a.html')
 
 def index(request):
+    return render(request, 'Staff/index.html')
+
+def model_query(request):
     """
     # 添加表记录
     # 方式1 返回一个生成记录的对象
@@ -21,7 +32,6 @@ def index(request):
     print(str(staff_obj2))
     """
 
-    """
     # 查询
     # all方法
     staff_list = Staff.objects.all()   # 返回值为QuerySet类型
@@ -35,7 +45,7 @@ def index(request):
     # filter()方法 过滤器方法查询符合条件的结果集 返回值:QuerySet对象
     staff_list2 = Staff.objects.filter(id=1)
     print(staff_list2)
-
+    """
     # get()  有且只有一个查询结果时才有意义(若查到多条结果或无结果均报错), 返回值为model对象
     staff_obj3 = Staff.objects.get(id=1, sname='chen')
 
