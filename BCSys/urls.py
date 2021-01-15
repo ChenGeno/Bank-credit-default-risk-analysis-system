@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from bcapp import views as bc_view
+from staff import views as bc_view
 
 
 """
@@ -23,5 +23,5 @@ from bcapp import views as bc_view
 """
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('bc_gate/', include('bcapp.urls'))
+    path('bc_gate/', include('staff.urls'))
 ]

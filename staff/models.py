@@ -1,6 +1,7 @@
 from django.db import models
 from dataclasses import dataclass
-
+from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
@@ -10,6 +11,7 @@ class Staff(models.Model):
         return "Staff:[id={}, sno={}, sname={}]".format(
             self.id, self.sno, self.sname
         )
+
     class Sex(models.IntegerChoices):  # 采用 Django 提供了的 IntegerChoices 类，完成性别字段的枚举
         WOMAN = 0
         MAN = 1

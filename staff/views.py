@@ -1,5 +1,11 @@
-from django.shortcuts import render, HttpResponse
-from bcapp.models import Staff
+from django.shortcuts import render, redirect
+from staff.models import Staff
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as login_user
+from django.contrib.auth import logout as logout_user
+from django.http import HttpResponse
+from .forms import UserLoginForm
+# 引入logout模块
 
 # Create your views here.
 
@@ -8,12 +14,29 @@ def homepage(request):
 
 def login(request):
     if request.method == "POST":
-        sno = request.POST.get("sno")
-        pwd = request.POST.get("pwd")
+        print("post")
+        user_login_form = UserLoginForm(data=request.POST)
+        if user_login_form.is_valid():
+            print("valid")
+            # .cleaned_data 清洗出合法数据
+            data = user_login_form.cleaned_data
+            print(data['username'], data['password'])
+            # 检验账号、密码是否正确匹配数据库中的某个账户
+            # 若均匹配则返回这个Staff对象
+            staff = authenticate(username=data['username'], password=data['password'])
+            if staff:
+                # 将用户数据保存在 session 中, 实现了登录动作
+                login_user(request, staff)
+                return redirect("/bc_gate/index/")
+            else:
+                return HttpResponse("账号或密码输入有误，请重新输入")
+    else:
+        print("i am not post")
+        return render(request, 'Staff/login_a.html')
 
-        return HttpResponse("登录成功")
-
-    return render(request, 'Staff/login_a.html')
+def logout(request):
+    logout_user(request)
+    return redirect("/bc_gate/login/")
 
 def index(request):
     return render(request, 'Staff/index.html')
