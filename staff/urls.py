@@ -8,4 +8,6 @@ urlpatterns = [
     path("login/", views.login),
     path("logout/", views.logout, name='logout'),
     path("mq/", views.model_query),
+    path("register/", views.register),
+
 ]

@@ -4,7 +4,9 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_user
 from django.contrib.auth import logout as logout_user
 from django.http import HttpResponse
-from .forms import UserLoginForm
+from .forms import UserLoginForm, UserRegisterForm
+
+
 # 引入logout模块
 
 # Create your views here.
@@ -12,6 +14,26 @@ from .forms import UserLoginForm
 def homepage(request):
     return render(request, 'Staff/homepage.html')
 
+def register(request):
+    if request.method == 'POST':
+        user_register_form = UserRegisterForm(data=request.POST)
+        if user_register_form.is_valid():
+            new_user = user_register_form.save(commit=False)
+            # 设置密码
+            new_user.set_password(user_register_form.cleaned_data['password'])
+            new_user.save()
+            # 保存好数据后立即登录并返回主页面
+            # return HttpResponse(f"成功~{user_register_form}")
+            login(request, new_user)
+            return redirect("Staff/homepage.html")
+        else:
+            return HttpResponse(f"注册表单输入有误，请重新输入~{user_register_form}")
+    elif request.method == 'GET':
+        user_register_form = UserRegisterForm()
+        context = {'form': user_register_form}
+        return render(request, 'Staff/register.html')
+    else:
+        return HttpResponse("请使用GET或POST请求数据")
 def login(request):
     if request.method == "POST":
         print("post")

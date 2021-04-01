@@ -7,9 +7,9 @@
                     <!--                        <img src="/static/img/student.png"/" alt="image" class="rounded-circle m-t-xs img-fluid">-->
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         {% if user.is_authenticated %}
-                            <span class="block m-t-xs font-bold">{{ user.username }}</span>
+                            <span class="block m-t-xs font-bold">{{ user.first_name }}{{ user.last_name }}</span>
                         {% else %}
-                            <span class="block m-t-xs font-bold">张三</span>
+                            <span class="block m-t-xs font-bold">游客</span>
                         {% endif %}
 
 
