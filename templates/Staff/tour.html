@@ -1,0 +1,227 @@
+<!-- extends表明此页面继承自 base.html 文件 -->
+{% extends "base.html" %}
+{% load static %}
+
+<!-- 写入 base.html 中定义的 title -->
+{% block title %}
+    系统向导
+{% endblock title %}
+
+{% block css_content %}
+<!-- Bootstrap Tour -->
+    <link href="/static/common/inspinia/css/plugins/bootstrapTour/bootstrap-tour.min.css" rel="stylesheet">
+    <link href="/static/common/inspinia/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="/static/css/my_loader.css" rel="stylesheet">
+{% endblock css_content %}
+
+
+<!-- 写入 base.html 中定义的 content -->
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>系统向导</h5>
+                </div>
+                <div class="ibox-content" id="click_start_tour">
+                    <p>
+                        通过操作向导，您将快速了解如何利用本系统跳过人工审批，快速申请到银行贷款。
+                    </p>
+
+                    <div class=" m-t-sm" >
+                        <div id = "start_tour" name="start_tour">
+                            <a href="#" class="btn btn-primary startTour"><i class="fa fa-play"></i> 开始向导</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>第一步</h5>
+                </div>
+                <div class="ibox-content text-center" id="step1">
+                    <div class="p-sm">
+                        <h3>（注册并）登录本系统</h3>
+                        已经完成
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>第二步</h5>
+                </div>
+                <div class="ibox-content text-center" id="step2">
+                    <div class="p-sm">
+                        <h3>绑定自己在银行的会员账号
+                        或
+                        输入相关个人信息</h3>
+                        （1-3分钟）
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>第三步</h5>
+                </div>
+                <div class="ibox-content text-center" id="step3">
+                    <div class="p-sm">
+                        <h3>输入本次信贷的需求信息</h3>
+                        （1分钟）
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>最后一步</h5>
+                </div>
+                <div class="ibox-content text-center" id="step4">
+                    <div class="p-md-4">
+                        <h3>由系统内置的机器学习模型帮助您评估此次请求</h3>
+                        （1分钟）
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>开始行动</h5>
+                </div>
+                <div class="ibox-content text-center" id="get_start">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="text-center">
+                                    <h3>点击右侧按钮</h3>
+                                    <h3>现在就开始</h3>
+                                </p>
+                            </div>
+                            <div class="col-sm-9">
+                                <div id="btn_wrapper">
+                                    <button class="btn btn-info  dim btn-large-dim btn-outline" type="button" style="width: 40%"
+                                    id = "start_btn" name="start_btn">
+                                        <i class="fa fa-sign-in"></i>
+                                    </button>
+                                </div>
+
+
+{#                                <p style="height: 115px">#}
+{#                                    <a href="/bc_gate/step_info/">#}
+{#                                        <i class="fa fa-sign-in big-icon">#}
+{#                                        </i>#}
+{#                                    </a>#}
+{#                                </p>#}
+                            </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block js_content %}
+    <!-- Bootstrap Tour -->
+    <script src="/static/common/inspinia/js/plugins/bootstrapTour/bootstrap-tour.min.js"></script>
+    <script src="/static/common/inspinia/js/plugins/tinycon/tinycon.min.js"></script>
+    <script>
+        if('True' === '{{ is_first_login }}'){
+            swal({
+                title: "欢迎来到速要贷",
+                text: "这是您第一次登录速要贷，点击“开始向导”学习操作步骤叭~",
+                confirmButtonText: "好的",
+            }, function (){
+                document.getElementById("start_tour").setAttribute("class", 'small-box animated rubberBand')
+
+            });
+        }
+        $("#start_btn").click(function (){
+            window.location.replace("/bc_gate/step_info/");
+        });
+        $(document).ready(function (){
+            // Instance the tour
+            var tour = new Tour({
+                steps: [{
+                        element: "#step1",
+                        title: "操作详情",
+                        content: "在使用本系统前，您必须先注册本系统账号。若您已经注册系统账号，则可以直接登录。",
+                        placement: "bottom",
+                    },
+                    {
+                        element: "#step2",
+                        title: "操作详情",
+                        content: "您需要绑定您的银行账号以获取您个人信用相关信息，否则您需要手动输入预测所需要的全部信息。",
+                        placement: "top",
+                    },
+                    {
+                        element: "#step3",
+                        title: "操作详情",
+                        content: "输入本次信贷预期申请的金额，周期等相关信息。",
+                        placement: "bottom",
+                        backdrop: true,
+                        backdropContainer: '#wrapper',
+                        onShown: function (tour){
+                            $('')
+                            $('body').addClass('tour-open')
+                        },
+                        onHidden: function (tour){
+                            $('body').removeClass('tour-close')
+                        }
+                    },
+                    {
+                        element: "#step4",
+                        title: "操作详情",
+                        content: "我们将用系统内嵌的机器学习模型对您的贷款申请进行评估，若申请通过模型评测，" +
+                            "则银行将在审核后直接发放您的贷款。若未通过评估，您也可以提交至人工渠道审批您的贷款申请。",
+                        placement: "top",
+                        backdrop: true,
+                        backdropContainer: '#wrapper',
+                        onShown: function (tour){
+                            $('body').addClass('tour-open')
+                        },
+                        onHidden: function (tour){
+                            $('body').removeClass('tour-close')
+                        }
+                    },
+                    {
+                        element: "#get_start",
+                        title: "现在就做",
+                        content: "点击下方箭头，让我们现在就开始您的速要贷之旅吧！",
+                        placement: "top",
+                        backdrop: true,
+                        backdropContainer: '#wrapper',
+                        onShown: function (tour){
+                            $('body').addClass('tour-open')
+                            $('#btn_wrapper').addClass('small-box animated pulse')
+                        },
+                        onHidden: function (tour){
+                            $('body').removeClass('tour-close')
+                        }
+                    }
+                ]});
+
+            // Initialize the tour
+            tour.init();
+
+            $('.startTour').click(function(){
+                tour.restart();
+
+                // Start the tour
+                // tour.start();
+            })
+        });
+    </script>
+{% endblock js_content %}

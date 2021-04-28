@@ -1,0 +1,63 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <img alt="image" class="rounded-circle" src="/static/img/teacher2.png" height="50px">
+                    <!--                        <img src="/static/img/student.png"/" alt="image" class="rounded-circle m-t-xs img-fluid">-->
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        {% if user.is_authenticated %}
+                            <span class="block m-t-xs font-bold">{{ user.first_name }}{{ user.last_name }}</span>
+                        {% else %}
+                            <span class="block m-t-xs font-bold">游客</span>
+                        {% endif %}
+
+
+
+                        <span class="text-muted text-xs block">计算机科学与技术学院 <b class="caret"></b></span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a class="dropdown-item" href="profile.html">软件工程系</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+            <li id="inform_li">
+                <a href="#"><i class="fa fa-eye"></i> <span class="nav-label">操作须知</span>  <span class="float-right label label-primary">重要</span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="/bc_gate/dashboard">相关条款</a></li>
+                    <li><a href="/bc_gate/user_tour">操作指引</a></li>
+                </ul>
+            </li>
+
+            <li id="fill_intention_li">
+                <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">信息修改</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="/bc_gate/basic_info/">个人信息修改</a></li>
+                </ul>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="/bc_gate/personal_info/">账号信息修改</a></li>
+                </ul>
+            </li>
+
+            <li id="view_intention_li">
+                <a href="#"><i class="fa fa-pie-chart"></i> <span class="nav-label">因素智能评估</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li id="view_intention"><a href="/view/student/view_intention.jsp">查看相关因素</a></li>
+                </ul>
+            </li>
+
+
+            <li id="change_password_li">
+                <a href="/bc_gate/application_info/"><i class="fa fa-money"></i> <span class="nav-label"/>申请贷款 </a>
+            </li>
+
+            <li>
+                <a href="/view/student/change_password.jsp"><i class="fa fa-files-o"></i> <span class="nav-label"/>（申请结果查询） </a>
+            </li>
+        </ul>
+
+    </div>
+</nav>

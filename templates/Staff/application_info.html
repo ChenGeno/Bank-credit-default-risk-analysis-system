@@ -1,0 +1,159 @@
+<!-- extends表明此页面继承自 base.html 文件 -->
+{% extends "base.html" %}
+{% load static %}
+
+<!-- 写入 base.html 中定义的 title -->
+{% block title %}
+    贷款申请信息
+{% endblock title %}
+
+
+{% block css_content %}
+    <!-- Sweet Alert -->
+    <link href="../../static/common/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+{% endblock css_content %}
+
+{% block content %}
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Basic Form</h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a>Forms</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong>Basic Form</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>贷款申请 <small>请在下方填写您申请贷款的相关信息</small></h5>
+
+                        </div>
+                        <div class="ibox-content">
+                            <form method="get">
+
+                                <div class="form-group  row"><label class="col-sm-2 col-form-label">贷款金额(loan_amnt)</label>
+                                    <div class="col-sm-10">
+                                    <div class="input-group m-b">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-addon">$</span>
+                                            </div>
+                                            <input type="text" class="form-control">
+                                            <div class="input-group-append">
+                                                <span class="input-group-addon">.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row"><label class="col-sm-2 col-form-label">贷款周期(term) <br/></label>
+
+                                    <div class="col-sm-10">
+                                        <div><label> <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios">
+                                            36个月 36 months
+                                        </label></div>
+                                        <div><label> <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">
+                                            60个月 60 months
+                                        </label></div>
+                                    </div>
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+
+                                <div class="form-group row"><label class="col-sm-2 col-form-label">int_rate：利率百分比</label>
+
+                                    <div class="col-sm-10"><select class="form-control m-b" name="account">
+                                        <option>A</option>
+                                        <option>B</option>
+                                        <option>C</option>
+                                        <option>D</option>
+                                        <option>E</option>
+                                        <option>F</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group  row"><label class="col-sm-2 col-form-label">* acc_now_delinq：借款人现在欠款的账户数</label>
+                                    <div class="col-sm-10">
+                                    <div class="input-group m-b">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-addon">$</span>
+                                            </div>
+                                            <input type="text" class="form-control">
+                                            <div class="input-group-append">
+                                                <span class="input-group-addon">.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row"><label class="col-sm-2 col-form-label">借贷目的(purpose)</label>
+
+                                    <div class="col-sm-10"><select class="form-control m-b" name="account">
+                                        <option>debt_consolidation</option>
+                                        <option>credit_card</option>
+                                        <option>home_improvement</option>
+                                        <option>other</option>
+                                        <option>major_purchase</option>
+                                        <option>small_business</option>
+                                        <option>car</option>
+                                        <option>medical</option>
+                                        <option>moving</option>
+                                        <option>wedding</option>
+                                        <option>house</option>
+                                        <option>vacation</option>
+                                        <option>educational</option>
+                                        <option>renewable_energy</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row"><label class="col-sm-2 col-form-label">贷款初始状态 <br/></label>
+                                    <div class="col-sm-10">
+                                        <div><label> <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios">
+                                            f：部分贷款
+                                        </label></div>
+                                        <div><label> <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">
+                                            w：全部贷款
+                                        </label></div>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group row">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-white btn-sm" type="submit">Cancel</button>
+                                        <button class="btn btn-primary btn-sm" type="submit">Save changes</button>
+                                        <a href="/bc_gate/check_result/">next</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock content %}
+
+{% block js_content %}
+    <!-- Sweet alert -->
+    <script src="../../static/common/inspinia/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script>
+
+    </script>
+{% endblock js_content %}
+
+

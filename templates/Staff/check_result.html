@@ -1,0 +1,96 @@
+<!-- extends表明此页面继承自 base.html 文件 -->
+{% extends "base.html" %}
+{% load static %}
+
+<!-- 写入 base.html 中定义的 title -->
+{% block title %}
+    评估结果
+{% endblock title %}
+
+{% block css_content %}
+    <link href="/static/common/inspinia/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="/static/css/my_loader.css" rel="stylesheet">
+{% endblock css_content %}
+
+<!-- 写入 base.html 中定义的 content -->
+{% block content %}
+    <div class="loader_wrapper">
+
+            <div class="sk-spinner sk-spinner-rotating-plane"></div>
+
+    </div>
+
+
+    {% if predict_rst %}
+        <div class="wrapper wrapper-content">
+            <div class="middle-box text-center animated flip">
+                <h3 class="font-bold">恭喜您</h3>
+                <div class="error-desc">
+                    您已经通过了系统模型的风险评估，点击这个按钮，进入免审核的贷款快车道吧！
+                    <br/><a href="index.html" class="btn btn-primary m-t" id="to_apply" name="to_apply">去申请</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="wrapper wrapper-content">
+            <div class="middle-box text-center animated tada">
+                <h3 class="font-bold">很遗憾</h3>
+                <div class="error-desc">
+                    您没有通过系统模型的风险评估，您可以放弃贷款，或申请人工贷款审批。
+                    <br/>
+                    <a href="index.html" class="btn btn-danger m-t">放弃贷款</a>&nbsp;
+                    <a href="index.html" class="btn btn-warning m-t">人工审批</a>
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock content %}
+
+{% block js_content %}
+    <script src="/static/common/inspinia/js/plugins/tinycon/tinycon.min.js"></script>
+    <script>
+        $(window).on("load", function (){
+            $(".loader_wrapper").fadeOut("show")
+        })
+        $(function () {
+            $('#to_apply').on('click',function () {
+                $.ajax({
+                    type:'post',
+                    url:"{% url 'bc_gate:apply_loan' %}",
+                    data:$.param(({csrfmiddlewaretoken: '{{ csrf_token }}'})),
+                    dataType:'json',
+                    success:function (data) {
+                        console.log(data);
+                        if(data.code == 2) {  //若为第一次登录
+                            swal({
+                                title: "登录成功",
+                                text: data.msg,
+                                type: "success",
+                            }, function () {
+                                window.location.replace("/bc_gate/user_tour/");
+                            });
+                        }else if(data.code == 1) {  //若为成功登录
+                            swal({
+                                title: "?",
+                                text: data.msg,
+                                type: "success",
+                            }, function () {
+
+                            });
+                        }else {  //若登录失败
+                            swal("出错了", data.msg, "error");
+                        }
+                    },
+                    error : function(e){
+                        console.log(e.status);
+                        console.log(e.responseText);
+                    }
+                });
+                return false;
+            })
+        })
+
+    </script>
+{% endblock js_content %}

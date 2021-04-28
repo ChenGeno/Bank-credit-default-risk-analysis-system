@@ -1,0 +1,459 @@
+<!-- extends表明此页面继承自 base.html 文件 -->
+{% extends "base.html" %}
+{% load static %}
+
+<!-- 写入 base.html 中定义的 title -->
+{% block title %}
+    个人信息绑定
+{% endblock title %}
+
+{% block css_content %}
+    <link href="/static/common/inspinia/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/static/common/inspinia/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="/static/common/inspinia/css/plugins/bootstrapTour/bootstrap-tour.min.css" rel="stylesheet">
+    <link href="/static/common/inspinia/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="../../static/common/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+{% endblock css_content %}
+
+
+<!-- 写入 base.html 中定义的 content -->
+
+{% block content %}
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>个人信息登记</h2>
+                    <div class="i-checks"><label> <input type="radio" value="option1" name="a"> <i></i> Verified </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" value="option2" name="a"> <i></i> Not Verified </label></div>
+                                                    <div class="i-checks"><label> <input type="radio" value="option3" name="a"> <i></i> Source Verified </label></div>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a>Forms</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong>Basic Form</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <h2>
+                                财务信息
+                            </h2>
+                            <p>
+                                请在下方按步骤填报您的个人财务信息
+                            </p>
+
+                            <form id="form" action="/bc_gate/application_info/" class="wizard-big">
+                                <h1>工作信息</h1>
+                                <fieldset>
+                                    <h2>
+
+                                    </h2>
+                                    <div class="row">
+                                        <div class="col-lg-6 b-r">
+                                            <div class="form-group">
+                                                <label>工作职位 (-emp_title-) *</label>
+                                                <input id="emp_title" name="emp_title" type="text" class="form-control required">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>工作年限 emp_length*</label>
+                                                <select class="form-control m-b" id="emp_length" name="emp_length">
+                                                    <option>< 1 year</option>
+                                                    <option>2 years</option>
+                                                    <option>3 years</option>
+                                                    <option>4 years</option>
+                                                    <option>5 years</option>
+                                                    <option>6 years</option>
+                                                    <option>7 years</option>
+                                                    <option>8 years</option>
+                                                    <option>9 years</option>
+                                                    <option>10+ years </option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>负债比 * （负债比=每月总偿还债额÷每月收入）dti *</label>
+                                                <input id="dti" name="dti" type="text" class="form-control required">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>绑定会员 <small>直接使用已注册会员信息</small></h5>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <h4>已经有会员号？</h4>
+                                                     <div class="form-group">
+                                                        输入会员号并点击"Go!"绑定个人信息 （否则请忽略此输入框）
+                                                    </div>
+                                                    <div class="form-group row"><label class="col-sm-2 col-form-label">会员号</label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="member_input" name="member_input">
+                                                                <span class="input-group-append">
+                                                                    <button type="button" class="btn btn-primary" id="bind_member" name="bind_member">Go!</button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <h1>资产状况</h1>
+                                <fieldset>
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>自报年收入 annual_inc*</label>
+                                                <input id="annual_inc" name="annual_inc" type="text" class="form-control required">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>tot_cur_bal：所有账户的当前总余额</label>
+                                                <input id="tot_cur_bal" name="tot_cur_bal" type="text" class="form-control required">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>住房性质(是否拥有房产）home_ownership *</label>
+                                                <select class="form-control m-b" id="home_ownership" name="home_ownership">
+                                                    <option>MORTGAGE</option>
+                                                    <option>RENT</option>
+                                                    <option>OWN</option>
+                                                    <option>OTHER</option>
+                                                    <option>NONE</option>
+                                                    <option>ANY</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>total_rev_hi_lim：总循环高信用/信用额度</label>
+                                                <input type="text" class="form-control required">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>tot_coll_amt：欠款总额 *</label>
+                                                <div class="input-group m-b">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-addon">$</span>
+                                                    </div>
+                                                    <input id="tot_coll_amt" name="tot_coll_amt" type="text" class="form-control">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-addon">.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <h1>信誉状况</h1>
+                                <fieldset>
+                                    <h2></h2>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <div>
+                                                     <label>核实状态 verification_status
+                                                    <small class="text-navy">是否已被核实资产状况</small></label>
+                                                </div>
+                                                <div>
+{#                                                    <div><label> <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios">#}
+{#                                                        Verified#}
+{#                                                    </label>#}
+{#                                                    <label> <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">#}
+{#                                                        Not Verified#}
+{#                                                    </label></div>#}
+{#                                                    <label> <input type="radio" value="option3" id="optionsRadios2" name="optionsRadios">#}
+{#                                                        #}
+{#                                                    </label>#}
+
+                                                    <label> <input class="iradio_square-green" type="radio" value="Verified" name="a"> <i></i> Verified </label>
+                                                    <label> <input class="iradio_square-green" type="radio" value="Not_Verified" name="a"> <i></i> Not Verified </label>
+                                                    <label> <input class="iradio_square-green" type="radio" value="Source_Verified" name="a"> <i></i> Source Verified </label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>otal_acc：总的信用额</label>
+                                                <input type="text" id="otal_acc" name="otal_acc" class="form-control required">
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>pub_rec：不良记录数 *</label>
+                                                <input type="text" id="pub_rec" name="pub_rec" class="form-control required">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>sub_grade：二级信誉 *</label>
+                                                <select class="form-control m-b" id="sub_grade" name="sub_grade">
+                                                    <option>A</option>
+                                                    <option>B</option>
+                                                    <option>C</option>
+                                                    <option>D</option>
+                                                    <option>E</option>
+                                                    <option>F</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>open_acc：档案中的信用额</label>
+                                                <input id="open_acc" name="open_acc" type="text" class="form-control required"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+
+                                <h1>负债情况</h1>
+                                <fieldset>
+                                    <h2></h2>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>revol_bal：总信贷循环余额 *</label>
+                                                <input id="revol_bal" name="revol_bal" type="text" class="form-control required">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>revol_util：循环利用率 透支额度占信用比例（即信用账户使用率）</label>
+                                                <input id="revol_util" name="revol_util"  type="text" class="form-control required">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>inq_last_6mths：近6月查询次数</label>
+                                                <input id="inq_last_6mths" name="inq_last_6mths" type="text" class="form-control required">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>delinq_2yrs (过去两年逾期30天以上的次数)</label>
+                                                <input id="delinq_2yrs" name="delinq_2yrs" type="text" class="form-control required">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>collections_12_mths_ex_med：除去医疗费外12个月费用</label>
+                                                <input id="collections_12_mths_ex_med" name="collections_12_mths_ex_med" type="text" class="form-control required">
+                                            </div>
+
+                                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">I agree with the Terms and Conditions.</label>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+
+
+{% block js_content %}
+
+    <!-- Custom and plugin javascript -->
+    <script src="/static/common/inspinia/js/inspinia.js"></script>
+    <script src="/static/common/inspinia/js/plugins/pace/pace.min.js"></script>
+
+    <!-- Steps -->
+    <script src="/static/common/inspinia/js/plugins/steps/jquery.steps.min.js"></script>
+
+    <!-- Jquery Validate -->
+    <script src="/static/common/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
+    <!-- tour-->
+    <script src="/static/common/inspinia/js/plugins/bootstrapTour/bootstrap-tour.min.js"></script>
+    <script src="/static/common/inspinia/js/plugins/tinycon/tinycon.min.js"></script>
+    <!-- Sweet alert -->
+    <script src="../../static/common/inspinia/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <script>
+        //设置csrf token，进行跨站伪造
+        var token = $('input[name=csrfmiddlewaretoken]').val();
+        $(document).ready(function(){
+            swal({
+                title: "快速绑定",
+                text: "输入您的银行会员号，以快速绑定您的个人信息 :)",
+                type: "input",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                inputPlaceholder: "银行会员号",
+                confirmButtonText: "绑定会员",
+                cancelButtonText: "手动填写信息"
+            },
+            function(inputValue){
+                if (inputValue === false)
+                    return false;
+                else if (inputValue === "") {
+                swal.showInputError("需要填写会员号才能绑定哦~");
+                return false;
+                }
+                else{
+                    $(function () {
+                        console.log(inputValue)
+                        let member_input = inputValue
+                        $.ajax({
+                            type:'post',
+                            url:"{% url "bc_gate:bind_member" %}",
+                            data:$.param({'member_id': member_input , csrfmiddlewaretoken: '{{ csrf_token }}'}),
+                            dataType:'json',
+                            success:function (data) {
+                                console.log(data);
+                                if(data.code == 1) {  //若会员号存在
+                                    swal({
+                                        title: "绑定成功！",
+                                        text: data.msg,
+                                        type: "success",
+                                        confirmButtonText: "去申请",
+                                    }, function () {
+                                        window.location.replace("/bc_gate/application_info/");
+                                    });
+                                }else {  //若登录失败
+                                    swal("出错了", data.msg, "error");
+                                }
+                            },
+                            error : function(e){
+                                console.log(e.status);
+                                console.log(e.responseText);
+                            }
+                        });
+                        return false;
+                    })
+                    //swal("Nice!", "You wrote: " + inputValue, "success");
+                }
+            });
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            //渲染step
+            $("#wizard").steps();
+            $("#form").steps({
+                bodyTag: "fieldset",
+                onStepChanging: function (event, currentIndex, newIndex)
+                {
+                    // Always allow going backward even if the current step contains invalid fields!
+                    if (currentIndex > newIndex)
+                    {
+                        return true;
+                    }
+                    // Forbid suppressing "Warning" step if the user is to young
+                    if (newIndex === 3 && Number($("#age").val()) < 18)
+                    {
+                        return false;
+                    }
+
+                    var form = $(this);
+
+                    // Clean up if user went backward before
+                    if (currentIndex < newIndex)
+                    {
+                        // To remove error styles
+                        $(".body:eq(" + newIndex + ") label.error", form).remove();
+                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                    }
+
+                    // Disable validation on fields that are disabled or hidden.
+                    form.validate().settings.ignore = ":disabled,:hidden";
+
+                    // Start validation; Prevent going forward if false
+                    return form.valid();
+                },
+                onStepChanged: function (event, currentIndex, priorIndex)
+                {
+                    // Suppress (skip) "Warning" step if the user is old enough.
+                    if (currentIndex === 2 && Number($("#age").val()) >= 18)
+                    {
+                        $(this).steps("next");
+                    }
+
+                    // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                    if (currentIndex === 2 && priorIndex === 3)
+                    {
+                        $(this).steps("previous");
+                    }
+                },
+                onFinishing: function (event, currentIndex)
+                {
+                    var form = $(this);
+
+                    // Disable validation on fields that are disabled.
+                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                    form.validate().settings.ignore = ":disabled";
+
+                    // Start validation; Prevent form submission if false
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex)
+                {
+                    var form = $(this);
+                    // Submit form input
+                    console.log($("#form").serialize())
+
+                    //form.submit();
+                }
+            }).validate({
+                        errorPlacement: function (error, element)
+                        {
+                            element.before(error);
+                        },
+                        rules: {
+                            confirm: {
+                                equalTo: "#password"
+                            }
+                        }
+                    });
+       });
+
+        $(function () {
+            $('#bind_member').on('click',function () {
+                console.log($('#member_input').val())
+                let member_input = $('#member_input').val()
+                $.ajax({
+                    type:'post',
+                    url:"{% url "bc_gate:bind_member" %}",
+                    data:$.param({'member_id': member_input , csrfmiddlewaretoken: '{{ csrf_token }}'}),
+                    dataType:'json',
+                    success:function (data) {
+                        console.log(data);
+                        if(data.code == 1) {  //若会员号存在
+                            swal({
+                                title: "绑定成功！",
+                                text: data.msg,
+                                type: "success",
+                                confirmButtonText: "去申请",
+                            }, function () {
+                                window.location.replace("/bc_gate/application_info/");
+                            });
+                        }else {  //若登录失败
+                            swal("出错了", data.msg, "error");
+                        }
+                    },
+                    error : function(e){
+                        console.log(e.status);
+                        console.log(e.responseText);
+                    }
+                });
+                return false;
+            })
+        })
+    </script>
+
+{% endblock js_content %}
+
